@@ -2,44 +2,31 @@
 
 import sys
 
-options = ['rock', 'paper', 'scissors']
-
-def recurse(n, arr, option):
-  
-  newArr = arr
-  if n == 0:
-    newArr = [[]] if arr == [] else arr
-  else:
-    if newArr == []:
-      newArr.append([option])
-      return recurse(n-1, arr, option)
-    else:
-      print(arr)
-      print(n)
-      for item in arr:
-        for option in options:
-          newItem = item
-          newItem.append(option)
-          newArr.append(newItem)
-          print(newItem)
-        newArr.remove(item)
-      return recurse(n-1, newArr, option)
-    
-    #check for repeats
-  print(newArr)
-  return newArr
-
 def rock_paper_scissors(n):
   permutations = []
   options = ['rock', 'paper', 'scissors']
 
-  
+  def recurse_options(n, arr):
+    if n == 0:
+      return [[]] if arr == [] else arr
+    else:
+      if arr == []:
+        for option in options:
+          arr.append([option])
+        return recurse_options(n - 1, arr)
+      else:
+        newArr = []
+        for item in arr:
+          for option in options:
+            newItem = item.copy()
+            newItem.append(option)
+            newArr.append(newItem)
+            print(newArr)
+        return recurse_options(n - 1, newArr)
 
-  for option in options:
-    permutation_for_option = recurse(n,[],option)
-    permutations.append(*permutation_for_option)
+  permutations = recurse_options(n, [])
 
-  print(permutations)
+  #print(permutations)
   return permutations
 
 
